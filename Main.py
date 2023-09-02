@@ -1,5 +1,3 @@
-#naming conventions: files start with lower case| variables are lower case, split with an underscore | classes start with upper case
-
 
 #imports the grid class from the file grid
 
