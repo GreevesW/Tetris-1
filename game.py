@@ -1,6 +1,3 @@
-#The game class centralises all of the game features in order to make the code more maintainable
-
-    #chooses blocks at random, but cycles through all of the blocks first before repeating
 
             #calls the original list back once all elements have been used
 
@@ -10,17 +7,22 @@ from blocks import *
 import random
 import pygame
 
+#The game class centralises all of the game features in order to make the code more maintainable
 class Game:
 	def __init__(self):
+		#defining class attributes
 		self.grid = Grid()
 		self.blocks = [IBlock(), JBlock(), LBlock(), OBlock(), SBlock(), TBlock(), ZBlock()]
 		self.current_block = self.get_random_block()
 		self.next_block = self.get_random_block()
 		self.game_over = False
 		self.score = 0
+
+		#game audio
 		self.rotate_sound = pygame.mixer.Sound("rotate.ogg")
 		self.clear_sound = pygame.mixer.Sound("clear.ogg")
 
+		#music audio
 		pygame.mixer.music.load("music.ogg")
 		pygame.mixer.music.play(-1)
 
@@ -33,6 +35,7 @@ class Game:
 			self.score += 500
 		self.score += move_down_points
 
+	 #chooses blocks at random, but cycles through all of the blocks first before repeating
 	def get_random_block(self):
 		if len(self.blocks) == 0:
 			self.blocks = [IBlock(), JBlock(), LBlock(), OBlock(), SBlock(), TBlock(), ZBlock()]
@@ -40,6 +43,7 @@ class Game:
 		self.blocks.remove(block)
 		return block
 
+	#defines all of the movement functions used elsewhere in the script
 	def move_left(self):
 		self.current_block.move(0, -1)
 		if self.block_inside() == False or self.block_fits() == False:
@@ -56,6 +60,7 @@ class Game:
 			self.current_block.move(-1, 0)
 			self.lock_block()
 
+	#This method prevents the block from moving, once it has made contact with the bottom of the screen
 	def lock_block(self):
 		tiles = self.current_block.get_cell_positions()
 		for position in tiles:
@@ -76,6 +81,7 @@ class Game:
 		self.next_block = self.get_random_block()
 		self.score = 0
 
+	#checks if the block can be moved to its new position
 	def block_fits(self):
 		tiles = self.current_block.get_cell_positions()
 		for tile in tiles:
@@ -83,6 +89,7 @@ class Game:
 				return False
 		return True
 
+	#rotates the block
 	def rotate(self):
 		self.current_block.rotate()
 		if self.block_inside() == False or self.block_fits() == False:
@@ -90,6 +97,7 @@ class Game:
 		else:
 			self.rotate_sound.play()
 
+	#checks if the block is inside the game window
 	def block_inside(self):
 		tiles = self.current_block.get_cell_positions()
 		for tile in tiles:
@@ -97,6 +105,7 @@ class Game:
 				return False
 		return True
 
+	#draws the blocks (Offset applied)
 	def draw(self, screen):
 		self.grid.draw(screen)
 		self.current_block.draw(screen, 11, 11)
