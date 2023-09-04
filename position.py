@@ -1,5 +1,5 @@
 
-#defines the positions blacks can be placed in when rotating
+#defines the positions blocks can be placed in when rotating
 class Position:
     def __init__(self, row, column):
         self.row = row
