@@ -1,10 +1,6 @@
 #This file is used to allow color definitions to be reused, making the code more efficient.
 
-    #defines colors for the blocks
-
-    
-    #A python decorator that allows a method to be called on a class
-
+#defines colors for the blocks
 class Colors:
 	dark_grey = (26, 31, 40)
 	green = (47, 230, 23)
@@ -18,6 +14,7 @@ class Colors:
 	dark_blue = (44, 44, 127)
 	light_blue = (59, 85, 162)
 
+#A python decorator that allows a method to be called on a class
 	@classmethod
 	def get_cell_colors(cls):
 		return [cls.dark_grey, cls.green, cls.red, cls.orange, cls.yellow, cls.purple, cls.cyan, cls.blue]
